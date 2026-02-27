@@ -58,7 +58,10 @@ def run_mode(
 
     prompt = MODE_BUILDERS[mode]()
     messages = build_messages_for_video(prompt_text=prompt, video_url=video_url)
-    resp = client.chat_completions(messages=messages)
+    resp = client.chat_completions(
+        messages=messages,
+        extra_body={"mm_processor_kwargs": client.mm_processor_kwargs()},
+    )
 
     _write_text(raw_path, resp.content_text)
     think, parsed, _json_text = parse_model_output(resp.content_text)

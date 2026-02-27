@@ -47,6 +47,10 @@ class AppConfig:
     # Optional
     seed: Optional[int] = None
 
+    # Multimodal processor kwargs (per NVIDIA reason guide examples)
+    mm_fps: int = 4
+    mm_do_sample_frames: bool = True
+
     @staticmethod
     def load() -> "AppConfig":
         # CLI args are handled in cli.py. Here we implement env + .env.
@@ -79,6 +83,10 @@ class AppConfig:
         seed_env = _get_env("NEBIUS_VLLM_SEED")
         seed = int(seed_env) if seed_env not in (None, "") else None
 
+        mm_fps = _get_int("NEBIUS_VLLM_MM_FPS", 4)
+        mm_do_sample_frames_env = (_get_env("NEBIUS_VLLM_DO_SAMPLE_FRAMES", "true") or "true").strip().lower()
+        mm_do_sample_frames = mm_do_sample_frames_env in ("1", "true", "yes", "y", "on")
+
         if not base_url:
             raise RuntimeError("Missing NEBIUS_VLLM_BASE_URL (or COSMOS_API_BASE).")
         if not api_key:
@@ -96,4 +104,6 @@ class AppConfig:
             repetition_penalty=repetition_penalty,
             max_tokens=max_tokens,
             seed=seed,
+            mm_fps=mm_fps,
+            mm_do_sample_frames=mm_do_sample_frames,
         )

@@ -319,14 +319,12 @@ Write your final answer immediately after the </think> tag.
 [
   {
     "role": "system",
-    "content": [
-      { "type": "text", "text": "You are a helpful assistant." }
-    ]
+    "content": "You are a helpful assistant."
   },
   {
     "role": "user",
     "content": [
-      { "type": "video_url", "video_url": "https://example.com/video.mp4" },
+      { "type": "video_url", "video_url": { "url": "https://example.com/video.mp4" } },
       { "type": "text", "text": "YOUR PROMPT HERE (with reasoning suffix appended)" }
     ]
   }
@@ -334,8 +332,12 @@ Write your final answer immediately after the </think> tag.
 ```
 
 **Sampling parameters (recommended):**
-- Without reasoning: `top_p=0.95`, `top_k=20`, `temperature=0.2`, `presence_penalty=0.0`, `repetition_penalty=1.0`
+- Without reasoning: `top_p=0.8`, `top_k=20`, `temperature=0.2`, `presence_penalty=1.5`, `repetition_penalty=1.0`
 - With reasoning: `top_p=0.95`, `top_k=20`, `temperature=0.6`, `presence_penalty=0.0`, `repetition_penalty=1.0`
+
+**Video frame sampling (recommended):**
+- Set `mm_processor_kwargs` to sample frames rather than processing the full native FPS:
+  - `mm_processor_kwargs: { fps: 4, do_sample_frames: true }`
 
 ## 4. Analysis Modes — Detailed Prompt Engineering
 

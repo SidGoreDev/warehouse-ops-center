@@ -31,11 +31,15 @@ class NebiusVllmClient:
         r.raise_for_status()
         return r.json()
 
+    def mm_processor_kwargs(self) -> Dict[str, Any]:
+        return {"fps": self._cfg.mm_fps, "do_sample_frames": self._cfg.mm_do_sample_frames}
+
     def chat_completions(
         self,
         *,
         messages: List[Dict[str, Any]],
         max_tokens: Optional[int] = None,
+        extra_body: Optional[Dict[str, Any]] = None,
     ) -> ChatResponse:
         url = f"{self._cfg.base_url}/v1/chat/completions"
 
@@ -49,6 +53,8 @@ class NebiusVllmClient:
             "repetition_penalty": self._cfg.repetition_penalty,
             "max_tokens": max_tokens if max_tokens is not None else self._cfg.max_tokens,
         }
+        if extra_body:
+            body.update(extra_body)
         if self._cfg.seed is not None:
             body["seed"] = self._cfg.seed
 
@@ -74,12 +80,12 @@ def build_messages_for_video(*, prompt_text: str, video_url: str) -> List[Dict[s
     return [
         {
             "role": "system",
-            "content": [{"type": "text", "text": "You are a helpful assistant."}],
+            "content": "You are a helpful assistant.",
         },
         {
             "role": "user",
             "content": [
-                {"type": "video_url", "video_url": video_url},
+                {"type": "video_url", "video_url": {"url": video_url}},
                 {"type": "text", "text": prompt_text},
             ],
         },
@@ -90,10 +96,10 @@ def build_messages_text_only(*, prompt_text: str) -> List[Dict[str, Any]]:
     return [
         {
             "role": "system",
-            "content": [{"type": "text", "text": "You are a helpful assistant."}],
+            "content": "You are a helpful assistant.",
         },
         {
             "role": "user",
-            "content": [{"type": "text", "text": prompt_text}],
+            "content": prompt_text,
         },
     ]

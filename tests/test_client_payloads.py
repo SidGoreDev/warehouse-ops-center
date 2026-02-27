@@ -10,6 +10,7 @@ class TestClientPayloads(unittest.TestCase):
         self.assertEqual(msgs[1]["role"], "user")
         user_parts = msgs[1]["content"]
         self.assertEqual(user_parts[0]["type"], "video_url")
+        self.assertIn("url", user_parts[0]["video_url"])
         self.assertEqual(user_parts[1]["type"], "text")
 
 
