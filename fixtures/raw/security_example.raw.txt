@@ -1,0 +1,15 @@
+<think>
+The person is wearing no high-vis or badge and is moving quickly toward a door marked as restricted. Their behavior is inconsistent with routine warehouse picking and suggests unauthorized access.
+</think>
+{
+  "persons": [
+    {
+      "person_id": "Person 1",
+      "authorization_assessment": "suspicious",
+      "reasoning": "No visible badge/PPE and movement toward restricted area without hesitation.",
+      "indicators": ["no_badge_visible", "no_ppe_visible", "restricted_area_entry_attempt"]
+    }
+  ],
+  "overall_security": "ALERT",
+  "recommended_action": "Approach the individual and verify authorization; review access logs for the restricted door."
+}

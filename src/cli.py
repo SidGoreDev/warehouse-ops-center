@@ -8,14 +8,17 @@ from typing import Any, Dict
 
 import yaml
 
-from .client import NebiusVllmClient
+from .client import NebiusVllmClient, build_messages_for_video, build_messages_text_only
 from .config import AppConfig
 from .evaluation.evaluator import evaluate_results
-from .pipeline import run_full, run_mode
+from .media import is_probably_url, video_arg_to_video_url
+from .parsing import parse_model_output
+from .pipeline import MODE_BUILDERS, run_full, run_mode
+from .prompts import composite_report
 
 
 def _cmd_analyze(args: argparse.Namespace) -> int:
-    cfg = AppConfig.load()
+    cfg = AppConfig.load(require_endpoint=True)
     client = NebiusVllmClient(cfg)
 
     out_dir = args.out
@@ -31,7 +34,7 @@ def _cmd_analyze(args: argparse.Namespace) -> int:
 
 
 def _cmd_batch(args: argparse.Namespace) -> int:
-    cfg = AppConfig.load()
+    cfg = AppConfig.load(require_endpoint=True)
     client = NebiusVllmClient(cfg)
 
     manifest_path = Path(args.manifest)
@@ -68,6 +71,86 @@ def _cmd_eval(args: argparse.Namespace) -> int:
     return 0
 
 
+def _cmd_render(args: argparse.Namespace) -> int:
+    cfg = AppConfig.load(require_endpoint=False)
+
+    def mk_body(*, messages: list[dict], include_mm: bool) -> dict:
+        body: dict = {
+            "model": cfg.model,
+            "messages": messages,
+            "temperature": cfg.temperature,
+            "top_p": cfg.top_p,
+            "top_k": cfg.top_k,
+            "presence_penalty": cfg.presence_penalty,
+            "repetition_penalty": cfg.repetition_penalty,
+            "max_tokens": cfg.max_tokens,
+        }
+        if cfg.seed is not None:
+            body["seed"] = cfg.seed
+        if include_mm:
+            body["mm_processor_kwargs"] = {"fps": cfg.mm_fps, "do_sample_frames": cfg.mm_do_sample_frames}
+        return body
+
+    out: dict = {
+        "note": "This command does not call Nebius. It prints the request payload(s) you will send.",
+        "base_url": cfg.base_url,
+        "endpoint": f"{cfg.base_url}/v1/chat/completions",
+        "auth_header": "Authorization: Bearer <redacted>",
+        "requests": [],
+    }
+
+    if args.mode != "full":
+        prompt = MODE_BUILDERS[args.mode]()
+        video_url = video_arg_to_video_url(args.video, embed=args.embed_video)
+        msgs = build_messages_for_video(prompt_text=prompt, video_url=video_url)
+        out["requests"].append({"mode": args.mode, "body": mk_body(messages=msgs, include_mm=True)})
+    else:
+        video_url = video_arg_to_video_url(args.video, embed=args.embed_video)
+        for mode in ("load", "safety", "security", "timeline"):
+            prompt = MODE_BUILDERS[mode]()
+            msgs = build_messages_for_video(prompt_text=prompt, video_url=video_url)
+            out["requests"].append({"mode": mode, "body": mk_body(messages=msgs, include_mm=True)})
+
+        composite_prompt = composite_report.build_prompt(
+            load_json={"...": "load_json_here"},
+            safety_json={"...": "safety_json_here"},
+            security_json={"...": "security_json_here"},
+            timeline_json=[{"...": "timeline_json_here"}],
+        )
+        msgs = build_messages_text_only(prompt_text=composite_prompt)
+        out["requests"].append({"mode": "composite_report", "body": mk_body(messages=msgs, include_mm=False)})
+
+    print(json.dumps(out, indent=2, ensure_ascii=False))
+    return 0
+
+
+def _cmd_parse(args: argparse.Namespace) -> int:
+    raw_path = Path(args.raw)
+    text = raw_path.read_text(encoding="utf-8")
+    think, parsed, _json_text = parse_model_output(text)
+
+    out_dir = Path(args.out_dir) if args.out_dir else raw_path.parent
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    base = raw_path.name
+    if base.endswith(".raw.txt"):
+        base = base[: -len(".raw.txt")]
+    else:
+        base = raw_path.stem
+
+    think_path = out_dir / f"{base}.think.txt"
+    json_path = out_dir / f"{base}.json"
+
+    if think is not None:
+        if args.force or not think_path.exists():
+            think_path.write_text(think + "\n", encoding="utf-8")
+    if args.force or not json_path.exists():
+        json_path.write_text(json.dumps(parsed, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+    print(json.dumps({"think_path": str(think_path), "json_path": str(json_path)}, indent=2))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="warehouse-ops-center")
     sp = p.add_subparsers(dest="cmd", required=True)
@@ -89,6 +172,22 @@ def build_parser() -> argparse.ArgumentParser:
     pe.add_argument("--ground-truth", required=True, help="Ground truth directory")
     pe.add_argument("--out", required=True, help="Path to write eval report JSON")
     pe.set_defaults(func=_cmd_eval)
+
+    pr = sp.add_parser("render", help="Print the exact vLLM request payload (offline).")
+    pr.add_argument("--mode", required=True, choices=["load", "safety", "security", "timeline", "full"])
+    pr.add_argument("--video", required=True, help="Path to local video or a URL/data: URI")
+    pr.add_argument(
+        "--embed-video",
+        action="store_true",
+        help="Embed local video as a base64 data: URI in the printed payload (can be very large).",
+    )
+    pr.set_defaults(func=_cmd_render)
+
+    pp = sp.add_parser("parse", help="Parse a saved *.raw.txt model output into JSON + think files (offline).")
+    pp.add_argument("--raw", required=True, help="Path to a saved raw output (e.g., outputs/clip__load.raw.txt)")
+    pp.add_argument("--out-dir", default="", help="Output directory (default: same as raw file)")
+    pp.add_argument("--force", action="store_true", help="Overwrite existing outputs")
+    pp.set_defaults(func=_cmd_parse)
 
     return p
 

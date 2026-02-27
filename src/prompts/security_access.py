@@ -26,5 +26,10 @@ Return results as JSON:
   "recommended_action": "string"
 }
 
+If you cannot see any persons clearly, return:
+- "persons": []
+- "overall_security": "CLEAR"
+- and explain in "recommended_action" that no assessment was possible.
+
 Return ONLY valid JSON after the </think> tag. Do not use markdown fences."""
     return with_reasoning_suffix(prompt)

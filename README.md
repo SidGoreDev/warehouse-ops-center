@@ -38,6 +38,18 @@ Run a batch manifest:
 python -m src.cli batch --manifest .\batch\batch_manifest_example.yaml
 ```
 
+Render the exact request payload (offline; no Nebius calls):
+
+```powershell
+python -m src.cli render --mode load --video .\data\videos\clip.mp4
+```
+
+Parse a saved raw output into JSON + `<think>` (offline):
+
+```powershell
+python -m src.cli parse --raw .\outputs\clip.mp4__load.raw.txt
+```
+
 Run evaluation (offline, against hand-labeled ground truth):
 
 ```powershell

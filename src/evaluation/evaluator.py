@@ -6,8 +6,11 @@ from typing import Any, Dict
 
 from .metrics import (
     load_overall_risk_accuracy,
+    load_overload_any_accuracy,
     ppe_overall_compliance_accuracy,
+    ppe_worker_set_metrics,
     security_overall_accuracy,
+    security_person_auth_accuracy,
     timeline_event_metrics,
 )
 
@@ -55,13 +58,22 @@ def evaluate_results(*, results_dir: str, ground_truth_dir: str) -> Dict[str, An
             report["modes"][mode]["metrics"].setdefault("overall_risk_accuracy", []).append(
                 load_overall_risk_accuracy(pred, gt)
             )
+            report["modes"][mode]["metrics"].setdefault("overload_any_accuracy", []).append(
+                load_overload_any_accuracy(pred, gt)
+            )
         elif mode == "safety":
             report["modes"][mode]["metrics"].setdefault("overall_compliance_accuracy", []).append(
                 ppe_overall_compliance_accuracy(pred, gt)
             )
+            m = ppe_worker_set_metrics(pred, gt)
+            for k, v in m.items():
+                report["modes"][mode]["metrics"].setdefault(k, []).append(v)
         elif mode == "security":
             report["modes"][mode]["metrics"].setdefault("overall_security_accuracy", []).append(
                 security_overall_accuracy(pred, gt)
+            )
+            report["modes"][mode]["metrics"].setdefault("person_auth_accuracy", []).append(
+                security_person_auth_accuracy(pred, gt)
             )
         elif mode == "timeline":
             m = timeline_event_metrics(pred, gt)

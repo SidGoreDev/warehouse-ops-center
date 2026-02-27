@@ -28,5 +28,7 @@ Return as JSON:
   "shift_status": "NORMAL | ELEVATED_RISK | UNSAFE"
 }}
 
+If any upstream section is empty, still produce a report and mention the limitation in "executive_summary".
+
 Return ONLY valid JSON after the </think> tag. Do not use markdown fences."""
     return with_reasoning_suffix(prompt)

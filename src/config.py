@@ -52,7 +52,7 @@ class AppConfig:
     mm_do_sample_frames: bool = True
 
     @staticmethod
-    def load() -> "AppConfig":
+    def load(*, require_endpoint: bool = True) -> "AppConfig":
         # CLI args are handled in cli.py. Here we implement env + .env.
         load_dotenv(override=False)
 
@@ -88,9 +88,13 @@ class AppConfig:
         mm_do_sample_frames = mm_do_sample_frames_env in ("1", "true", "yes", "y", "on")
 
         if not base_url:
-            raise RuntimeError("Missing NEBIUS_VLLM_BASE_URL (or COSMOS_API_BASE).")
+            if require_endpoint:
+                raise RuntimeError("Missing NEBIUS_VLLM_BASE_URL (or COSMOS_API_BASE).")
+            base_url = "http://<public_ip>:8000"
         if not api_key:
-            raise RuntimeError("Missing NEBIUS_VLLM_API_KEY (or COSMOS_API_KEY).")
+            if require_endpoint:
+                raise RuntimeError("Missing NEBIUS_VLLM_API_KEY (or COSMOS_API_KEY).")
+            api_key = "<api_key>"
 
         return AppConfig(
             base_url=base_url.rstrip("/"),

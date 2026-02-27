@@ -15,12 +15,86 @@ def load_overall_risk_accuracy(pred: Dict[str, Any], gt: Dict[str, Any]) -> floa
     return _eq_ci(pred.get("overall_risk"), gt.get("overall_risk"))
 
 
+def load_overload_any_accuracy(pred: Dict[str, Any], gt: Dict[str, Any]) -> float:
+    def any_over(d: Dict[str, Any]) -> bool:
+        loads = d.get("loads", [])
+        if not isinstance(loads, list):
+            return False
+        return any(bool(x.get("equipment_limit_exceeded")) for x in loads if isinstance(x, dict))
+
+    return 1.0 if any_over(pred) == any_over(gt) else 0.0
+
+
 def ppe_overall_compliance_accuracy(pred: Dict[str, Any], gt: Dict[str, Any]) -> float:
     return _eq_ci(pred.get("overall_compliance"), gt.get("overall_compliance"))
 
 
+def _jaccard(a: List[str], b: List[str]) -> float:
+    sa = {str(x).strip().lower() for x in a if x is not None}
+    sb = {str(x).strip().lower() for x in b if x is not None}
+    if not sa and not sb:
+        return 1.0
+    return len(sa & sb) / len(sa | sb) if (sa | sb) else 0.0
+
+
+def ppe_worker_set_metrics(pred: Dict[str, Any], gt: Dict[str, Any]) -> Dict[str, float]:
+    """
+    Average set similarity across workers for observed_ppe and required_ppe.
+    Workers are matched by worker_id when possible; otherwise by index.
+    """
+    pw = pred.get("workers", [])
+    gw = gt.get("workers", [])
+    if not isinstance(pw, list) or not isinstance(gw, list):
+        return {"observed_ppe_jaccard": 0.0, "required_ppe_jaccard": 0.0, "worker_compliant_accuracy": 0.0}
+
+    gt_by_id = {w.get("worker_id"): w for w in gw if isinstance(w, dict) and w.get("worker_id") is not None}
+
+    obs_scores: List[float] = []
+    req_scores: List[float] = []
+    comp_scores: List[float] = []
+
+    for idx, w in enumerate(pw):
+        if not isinstance(w, dict):
+            continue
+        wid = w.get("worker_id")
+        gw_match = gt_by_id.get(wid) if wid in gt_by_id else (gw[idx] if idx < len(gw) else None)
+        if not isinstance(gw_match, dict):
+            continue
+
+        obs_scores.append(_jaccard(w.get("observed_ppe", []) or [], gw_match.get("observed_ppe", []) or []))
+        req_scores.append(_jaccard(w.get("required_ppe", []) or [], gw_match.get("required_ppe", []) or []))
+        comp_scores.append(1.0 if bool(w.get("compliant")) == bool(gw_match.get("compliant")) else 0.0)
+
+    def avg(xs: List[float]) -> float:
+        return sum(xs) / len(xs) if xs else 0.0
+
+    return {
+        "observed_ppe_jaccard": avg(obs_scores),
+        "required_ppe_jaccard": avg(req_scores),
+        "worker_compliant_accuracy": avg(comp_scores),
+    }
+
+
 def security_overall_accuracy(pred: Dict[str, Any], gt: Dict[str, Any]) -> float:
     return _eq_ci(pred.get("overall_security"), gt.get("overall_security"))
+
+
+def security_person_auth_accuracy(pred: Dict[str, Any], gt: Dict[str, Any]) -> float:
+    pp = pred.get("persons", [])
+    gp = gt.get("persons", [])
+    if not isinstance(pp, list) or not isinstance(gp, list):
+        return 0.0
+    gt_by_id = {p.get("person_id"): p for p in gp if isinstance(p, dict) and p.get("person_id") is not None}
+    scores: List[float] = []
+    for idx, p in enumerate(pp):
+        if not isinstance(p, dict):
+            continue
+        pid = p.get("person_id")
+        gp_match = gt_by_id.get(pid) if pid in gt_by_id else (gp[idx] if idx < len(gp) else None)
+        if not isinstance(gp_match, dict):
+            continue
+        scores.append(_eq_ci(p.get("authorization_assessment"), gp_match.get("authorization_assessment")))
+    return sum(scores) / len(scores) if scores else 0.0
 
 
 def _event_key(e: Dict[str, Any]) -> str:

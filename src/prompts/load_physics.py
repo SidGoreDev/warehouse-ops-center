@@ -27,5 +27,10 @@ Return results as JSON with the following structure:
   "risk_reasoning": "string"
 }
 
+If you cannot identify any loads or lifting equipment, return:
+- "loads": []
+- "overall_risk": "SAFE"
+- and explain why in "risk_reasoning".
+
 Return ONLY valid JSON after the </think> tag. Do not use markdown fences."""
     return with_reasoning_suffix(prompt)

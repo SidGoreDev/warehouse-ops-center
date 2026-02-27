@@ -26,5 +26,10 @@ Return results as JSON:
   "summary": "string"
 }
 
+If you cannot see any workers clearly, return:
+- "workers": []
+- "overall_compliance": "COMPLIANT"
+- and set "summary" to "No workers visible."
+
 Return ONLY valid JSON after the </think> tag. Do not use markdown fences."""
     return with_reasoning_suffix(prompt)

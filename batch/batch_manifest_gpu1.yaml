@@ -1,0 +1,31 @@
+session: gpu-1
+description: "Smoke test (offline-prepped): 4 modes on a small clip set"
+
+jobs:
+  - type: per_stream
+    mode: load
+    clips:
+      - { stream_id: cam_01, path: data/videos/clip01.mp4 }
+      - { stream_id: cam_02, path: data/videos/clip02.mp4 }
+    output_dir: outputs/gpu-1/per_stream/
+
+  - type: per_stream
+    mode: safety
+    clips:
+      - { stream_id: cam_01, path: data/videos/clip01.mp4 }
+      - { stream_id: cam_02, path: data/videos/clip02.mp4 }
+    output_dir: outputs/gpu-1/per_stream/
+
+  - type: per_stream
+    mode: security
+    clips:
+      - { stream_id: cam_01, path: data/videos/clip01.mp4 }
+      - { stream_id: cam_02, path: data/videos/clip02.mp4 }
+    output_dir: outputs/gpu-1/per_stream/
+
+  - type: per_stream
+    mode: timeline
+    clips:
+      - { stream_id: cam_01, path: data/videos/clip01.mp4 }
+      - { stream_id: cam_02, path: data/videos/clip02.mp4 }
+    output_dir: outputs/gpu-1/per_stream/

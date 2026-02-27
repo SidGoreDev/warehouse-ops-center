@@ -1,0 +1,21 @@
+<think>
+I will identify the most safety-relevant events, focusing on near-misses and improper handling. I will provide start/end times in mm:ss.ff.
+</think>
+[
+  {
+    "start": "00:03.20",
+    "end": "00:05.10",
+    "caption": "Forklift passes within a short distance of a pedestrian in the same lane.",
+    "event_type": "near_miss",
+    "severity": "high",
+    "recommended_action": "Separate pedestrian and vehicle lanes; enforce speed limits and spotter use."
+  },
+  {
+    "start": "00:08.00",
+    "end": "00:10.50",
+    "caption": "Worker lifts a heavy box with a bent back and twists to place it on a shelf.",
+    "event_type": "ergonomic_risk",
+    "severity": "medium",
+    "recommended_action": "Provide lift-assist tools and training on neutral spine lifting techniques."
+  }
+]

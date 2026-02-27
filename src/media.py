@@ -18,3 +18,17 @@ def file_to_data_uri(path: str) -> str:
 
 def is_probably_url(s: str) -> bool:
     return s.startswith("http://") or s.startswith("https://") or s.startswith("data:")
+
+
+def video_arg_to_video_url(video: str, *, embed: bool) -> str:
+    """
+    Convert a CLI `--video` argument into a `video_url` payload.
+
+    If `embed=False` and `video` is a local path, return a placeholder data URI
+    to avoid dumping multi-MB base64 into terminals/logs.
+    """
+    if is_probably_url(video):
+        return video
+    if embed:
+        return file_to_data_uri(video)
+    return "data:video/mp4;base64,<omitted>"

@@ -1,0 +1,20 @@
+Some preamble text the model might emit.
+
+```json
+<think>
+The worker is walking in a marked vehicle lane near a forklift. A hi-vis vest is visible, but no hard hat is apparent. Gloves are not clearly visible while handling boxes.
+</think>
+{
+  "workers": [
+    {
+      "worker_id": "Worker 1",
+      "observed_ppe": ["hi_vis_vest"],
+      "required_ppe": ["hi_vis_vest", "hard_hat", "gloves"],
+      "compliant": false,
+      "violation_description": "Missing hard hat and gloves while working near moving equipment and handling materials."
+    }
+  ],
+  "overall_compliance": "NON-COMPLIANT",
+  "summary": "Worker near forklift traffic lacks required hard hat and gloves."
+}
+```

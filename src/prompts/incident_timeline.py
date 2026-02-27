@@ -25,5 +25,7 @@ Provide timestamps in mm:ss.ff format. Return as JSON (an array):
   }
 ]
 
+If there are no safety-relevant events, return an empty array: [].
+
 Return ONLY valid JSON after the </think> tag. Do not use markdown fences."""
     return with_reasoning_suffix(prompt)

@@ -1,0 +1,17 @@
+<think>
+The pallet appears oversized and stacked high. A typical EUR pallet footprint and the visible box volume suggest a heavy load. The forklift mast tilt combined with a high center of gravity increases the tip risk, especially during turns or braking.
+</think>
+{
+  "loads": [
+    {
+      "description": "wrapped pallet of boxed goods",
+      "box_2d": [120, 210, 420, 610],
+      "estimated_weight_kg": 950,
+      "estimated_weight_reasoning": "large pallet footprint, multi-layer stacked boxes, dense packing suggests near 1 tonne",
+      "stability_assessment": "marginal",
+      "equipment_limit_exceeded": true
+    }
+  ],
+  "overall_risk": "CRITICAL",
+  "risk_reasoning": "High, top-heavy load likely exceeds the forklift's safe capacity and raises tipping risk."
+}
