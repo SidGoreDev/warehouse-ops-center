@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
 
-from .client import NebiusVllmClient, build_messages_for_video
+from .client import NebiusVllmClient, build_messages_for_video, build_messages_text_only
 from .media import file_to_data_uri, is_probably_url
 from .parsing import parse_model_output
 from .prompts import composite_report, incident_timeline, load_physics, ppe_safety, security_access
@@ -87,14 +87,8 @@ def run_full(
         timeline_json=timeline_out,
     )
 
-    if is_probably_url(video):
-        video_url = video
-        messages = build_messages_for_video(prompt_text=prompt, video_url=video_url)
-    else:
-        # Composite is text-only in spirit, but we keep it as a video+text call to avoid
-        # dependency on a separate text-only message contract. The prompt itself uses JSON.
-        video_url = file_to_data_uri(video)
-        messages = build_messages_for_video(prompt_text=prompt, video_url=video_url)
+    # Composite is a second-pass CR2 call using structured outputs (text-only).
+    messages = build_messages_text_only(prompt_text=prompt)
 
     resp = client.chat_completions(messages=messages)
     outp = Path(out_dir)

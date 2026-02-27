@@ -84,3 +84,16 @@ def build_messages_for_video(*, prompt_text: str, video_url: str) -> List[Dict[s
             ],
         },
     ]
+
+
+def build_messages_text_only(*, prompt_text: str) -> List[Dict[str, Any]]:
+    return [
+        {
+            "role": "system",
+            "content": [{"type": "text", "text": "You are a helpful assistant."}],
+        },
+        {
+            "role": "user",
+            "content": [{"type": "text", "text": prompt_text}],
+        },
+    ]
