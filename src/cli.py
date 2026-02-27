@@ -75,7 +75,7 @@ def build_parser() -> argparse.ArgumentParser:
     pa = sp.add_parser("analyze", help="Run a single analysis mode on a single video.")
     pa.add_argument("--mode", required=True, choices=["load", "safety", "security", "timeline", "full"])
     pa.add_argument("--video", required=True, help="Path to local video or a URL/data: URI")
-    pa.add_argument("--out", required=True, help="Output directory")
+    pa.add_argument("--out", default="outputs", help="Output directory (default: outputs/)")
     pa.add_argument("--force", action="store_true", help="Re-run even if output files already exist")
     pa.set_defaults(func=_cmd_analyze)
 

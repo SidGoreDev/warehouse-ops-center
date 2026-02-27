@@ -27,7 +27,7 @@ Edit `.env` with your Nebius endpoint IP and API key.
 Analyze a single video:
 
 ```powershell
-python -m src.cli analyze --mode load --video .\data\videos\clip.mp4 --out .\outputs
+python -m src.cli analyze --mode load --video .\data\videos\clip.mp4
 ```
 
 Modes: `load`, `safety`, `security`, `timeline`, `full`
