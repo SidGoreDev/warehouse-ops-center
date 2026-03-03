@@ -1,0 +1,39 @@
+session: auto-generated
+description: Generated from data\videos\meva_school_2018-03-07_17 (limit=50)
+jobs:
+- type: per_stream
+  mode: load
+  clips: &id001
+  - stream_id: clip_01
+    path: data/videos/meva_school_2018-03-07_17/2018-03-07.16-55-01.17-00-01.school.G328.r13_trim20s.mp4
+  - stream_id: clip_02
+    path: data/videos/meva_school_2018-03-07_17/2018-03-07.16-55-06.17-00-06.school.G300.r13_trim20s.mp4
+  - stream_id: clip_03
+    path: data/videos/meva_school_2018-03-07_17/2018-03-07.16-55-06.17-00-06.school.G336.r13_trim20s.mp4
+  - stream_id: clip_04
+    path: data/videos/meva_school_2018-03-07_17/2018-03-07.16-55-06.17-00-06.school.G339.r13_trim20s.mp4
+  - stream_id: clip_05
+    path: data/videos/meva_school_2018-03-07_17/2018-03-07.16-55-06.17-00-06.school.G424.r13_trim20s.mp4
+  - stream_id: clip_06
+    path: data/videos/meva_school_2018-03-07_17/2018-03-07.17-00-01.17-05-01.school.G328.r13_trim20s.mp4
+  - stream_id: clip_07
+    path: data/videos/meva_school_2018-03-07_17/2018-03-07.17-00-06.17-05-00.school.G336.r13_trim20s.mp4
+  - stream_id: clip_08
+    path: data/videos/meva_school_2018-03-07_17/2018-03-07.17-00-06.17-05-06.school.G300.r13_trim20s.mp4
+  - stream_id: clip_09
+    path: data/videos/meva_school_2018-03-07_17/2018-03-07.17-00-06.17-05-06.school.G339.r13_trim20s.mp4
+  - stream_id: clip_10
+    path: data/videos/meva_school_2018-03-07_17/2018-03-07.17-00-06.17-05-06.school.G424.r13_trim20s.mp4
+  output_dir: outputs/auto/per_stream/
+- type: per_stream
+  mode: safety
+  clips: *id001
+  output_dir: outputs/auto/per_stream/
+- type: per_stream
+  mode: security
+  clips: *id001
+  output_dir: outputs/auto/per_stream/
+- type: per_stream
+  mode: timeline
+  clips: *id001
+  output_dir: outputs/auto/per_stream/
