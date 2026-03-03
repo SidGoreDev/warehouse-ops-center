@@ -180,8 +180,9 @@ def cmd_plan(args: argparse.Namespace) -> int:
     lines.append("")
     lines.append("# Keys selected from MEVA public S3 via list-type=2; download with curl.exe")
     lines.append("$keys = @(")
-    for k in selected:
-        lines.append(f"  \"{k}\",")
+    for i, k in enumerate(selected):
+        comma = "," if i != len(selected) - 1 else ""
+        lines.append(f"  \"{k}\"{comma}")
     lines.append(")")
     lines.append("")
     lines.append("foreach ($k in $keys) {")
