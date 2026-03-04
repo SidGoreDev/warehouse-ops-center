@@ -4,6 +4,7 @@ import argparse
 import datetime as _dt
 import json
 from pathlib import Path
+import glob
 from typing import Any, Dict, List, Tuple
 
 
@@ -50,6 +51,33 @@ def _fmt_event_line(e: Dict[str, Any]) -> str:
     sev = _safe_str(e.get("severity"))
     cap = _shorten(e.get("caption", ""), 220)
     return f"{start}-{end} [{et}/{sev}] {cap}"
+
+
+def _find_video_path_for_clip(clip: str) -> str | None:
+    """
+    Attempt to locate a video under data/videos/** matching the clip filename.
+    Returns a workspace-relative posix path suitable for markdown links, or None.
+    """
+    # First try a small set of "known good" folders to avoid linking to older/blurrier re-encodes.
+    preferred_dirs = [
+        Path("data/videos/meva_examples_selected10"),
+        Path("data/videos/meva_school_selected_30s_copy"),
+        Path("data/videos/meva_school_selected_30s"),
+    ]
+    for d in preferred_dirs:
+        p = d / clip
+        if p.is_file():
+            return p.as_posix()
+
+    # Fallback: search anywhere under data/videos/**.
+    pattern = str(Path("data") / "videos" / "**" / clip)
+    matches = [Path(p) for p in glob.glob(pattern, recursive=True)]
+    matches = [m for m in matches if m.is_file()]
+    if not matches:
+        return None
+    # Prefer stable, deterministic ordering.
+    best = sorted(matches, key=lambda p: (p.as_posix().lower(), p.as_posix()))[0]
+    return best.as_posix()
 
 
 def build_report(results_dir: Path) -> str:
@@ -144,13 +172,19 @@ def build_report(results_dir: Path) -> str:
         sc = _md_escape(_safe_str(safety.get("overall_compliance")))
         sec = _md_escape(_safe_str(security.get("overall_security")))
         te = len(timeline) if isinstance(timeline, list) else ""
+
+        video_path = _find_video_path_for_clip(clip)
+        clip_cell = f"`{clip}`"
+        if video_path:
+            clip_cell = f"[`{clip}`]({video_path})"
+
         notes_parts: List[str] = []
         if clip in missing_by_clip:
             notes_parts.append("missing: " + ", ".join(missing_by_clip[clip]))
         if isinstance(timeline, list) and len(timeline) == 0:
             notes_parts.append("timeline empty")
         notes = _md_escape("; ".join(notes_parts))
-        out.append(f"| `{clip}` | {lr} | {sc} | {sec} | {te} | {notes} |")
+        out.append(f"| {clip_cell} | {lr} | {sc} | {sec} | {te} | {notes} |")
     out.append("")
 
     out.append("## Per-Clip Details")
@@ -158,6 +192,23 @@ def build_report(results_dir: Path) -> str:
 
     for clip in clips:
         out.append(f"### {clip}")
+        out.append("")
+
+        video_path = _find_video_path_for_clip(clip)
+        if video_path:
+            out.append(f"- video: [`{video_path}`]({video_path})")
+        else:
+            out.append("- video: (not found under `data/videos/**`)")
+
+        # Link to local JSON artifacts for quick inspection.
+        # These are workspace-relative links (may be gitignored, but clickable locally).
+        json_links: List[str] = []
+        for mode in MODES:
+            p = (results_dir / f"{clip}__{mode}.json").as_posix()
+            if (results_dir / f"{clip}__{mode}.json").exists():
+                json_links.append(f"[`{mode}`]({p})")
+        if json_links:
+            out.append(f"- outputs: " + " ".join(json_links))
         out.append("")
 
         load = rows[clip].get("load")

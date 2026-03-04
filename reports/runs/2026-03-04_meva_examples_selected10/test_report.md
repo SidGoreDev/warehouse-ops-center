@@ -1,6 +1,6 @@
 # Warehouse Ops Center - Test Report
 
-Generated: `2026-03-04 02:24:35`
+Generated: `2026-03-04 02:33:09`
 Results dir: `outputs/runs/2026-03-04_meva_examples_selected10/per_stream`
 
 ## Summary
@@ -15,20 +15,23 @@ Results dir: `outputs/runs/2026-03-04_meva_examples_selected10/per_stream`
 
 | Clip | Load | Safety | Security | Timeline events | Notes |
 |---|---:|---:|---:|---:|---|
-| `ex027-heavy-carry.mp4` | SAFE | COMPLIANT | CLEAR | 1 |  |
-| `ex028-heavy-carry.mp4` | SAFE | PARTIAL | CLEAR | 1 |  |
-| `ex029-heavy-carry.mp4` | WARNING | COMPLIANT | CLEAR | 1 |  |
-| `ex033-load-vehicle.mp4` | WARNING | COMPLIANT | ALERT | 1 |  |
-| `ex034-load-vehicle.mp4` | SAFE | COMPLIANT | CLEAR | 0 | timeline empty |
-| `ex035-load-vehicle.mp4` | SAFE | COMPLIANT | CLEAR | 0 | timeline empty |
-| `ex085-theft.mp4` | SAFE | COMPLIANT | CLEAR | 1 |  |
-| `ex086-unload-vehicle.mp4` | SAFE | COMPLIANT | CLEAR | 0 | timeline empty |
-| `ex087-unload-vehicle.mp4` | SAFE | NON-COMPLIANT | CLEAR | 1 |  |
-| `ex088-unload-vehicle.mp4` | SAFE | COMPLIANT | CLEAR | 0 | timeline empty |
+| [`ex027-heavy-carry.mp4`](data/videos/meva_examples_selected10/ex027-heavy-carry.mp4) | SAFE | COMPLIANT | CLEAR | 1 |  |
+| [`ex028-heavy-carry.mp4`](data/videos/meva_examples_selected10/ex028-heavy-carry.mp4) | SAFE | PARTIAL | CLEAR | 1 |  |
+| [`ex029-heavy-carry.mp4`](data/videos/meva_examples_selected10/ex029-heavy-carry.mp4) | WARNING | COMPLIANT | CLEAR | 1 |  |
+| [`ex033-load-vehicle.mp4`](data/videos/meva_examples_selected10/ex033-load-vehicle.mp4) | WARNING | COMPLIANT | ALERT | 1 |  |
+| [`ex034-load-vehicle.mp4`](data/videos/meva_examples_selected10/ex034-load-vehicle.mp4) | SAFE | COMPLIANT | CLEAR | 0 | timeline empty |
+| [`ex035-load-vehicle.mp4`](data/videos/meva_examples_selected10/ex035-load-vehicle.mp4) | SAFE | COMPLIANT | CLEAR | 0 | timeline empty |
+| [`ex085-theft.mp4`](data/videos/meva_examples_selected10/ex085-theft.mp4) | SAFE | COMPLIANT | CLEAR | 1 |  |
+| [`ex086-unload-vehicle.mp4`](data/videos/meva_examples_selected10/ex086-unload-vehicle.mp4) | SAFE | COMPLIANT | CLEAR | 0 | timeline empty |
+| [`ex087-unload-vehicle.mp4`](data/videos/meva_examples_selected10/ex087-unload-vehicle.mp4) | SAFE | NON-COMPLIANT | CLEAR | 1 |  |
+| [`ex088-unload-vehicle.mp4`](data/videos/meva_examples_selected10/ex088-unload-vehicle.mp4) | SAFE | COMPLIANT | CLEAR | 0 | timeline empty |
 
 ## Per-Clip Details
 
 ### ex027-heavy-carry.mp4
+
+- video: [`data/videos/meva_examples_selected10/ex027-heavy-carry.mp4`](data/videos/meva_examples_selected10/ex027-heavy-carry.mp4)
+- outputs: [`load`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex027-heavy-carry.mp4__load.json) [`safety`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex027-heavy-carry.mp4__safety.json) [`security`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex027-heavy-carry.mp4__security.json) [`timeline`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex027-heavy-carry.mp4__timeline.json)
 
 **Load/Physics**
 
@@ -54,6 +57,9 @@ Results dir: `outputs/runs/2026-03-04_meva_examples_selected10/per_stream`
 - event: 00:02.00-00:29.00 [improper_handling/medium] Two individuals are seen carrying a large, rectangular object across the parking lot from left to right. They move steadily but must navigate around pedestrians and avoid the bus stop shelter to prevent collisions or ...
 
 ### ex028-heavy-carry.mp4
+
+- video: [`data/videos/meva_examples_selected10/ex028-heavy-carry.mp4`](data/videos/meva_examples_selected10/ex028-heavy-carry.mp4)
+- outputs: [`load`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex028-heavy-carry.mp4__load.json) [`safety`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex028-heavy-carry.mp4__safety.json) [`security`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex028-heavy-carry.mp4__security.json) [`timeline`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex028-heavy-carry.mp4__timeline.json)
 
 **Load/Physics**
 
@@ -81,6 +87,9 @@ Results dir: `outputs/runs/2026-03-04_meva_examples_selected10/per_stream`
 
 ### ex029-heavy-carry.mp4
 
+- video: [`data/videos/meva_examples_selected10/ex029-heavy-carry.mp4`](data/videos/meva_examples_selected10/ex029-heavy-carry.mp4)
+- outputs: [`load`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex029-heavy-carry.mp4__load.json) [`safety`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex029-heavy-carry.mp4__safety.json) [`security`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex029-heavy-carry.mp4__security.json) [`timeline`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex029-heavy-carry.mp4__timeline.json)
+
 **Load/Physics**
 
 - overall_risk: `WARNING`
@@ -105,6 +114,9 @@ Results dir: `outputs/runs/2026-03-04_meva_examples_selected10/per_stream`
 - event: 00:00.000-00:35.100 [/] A person labeled "Heavy Carry:1" is pushing a wheeled cart with a heavy object through a school hallway, navigating past stationary and moving individuals while maintaining a steady pace. The cart operator should slow...
 
 ### ex033-load-vehicle.mp4
+
+- video: [`data/videos/meva_examples_selected10/ex033-load-vehicle.mp4`](data/videos/meva_examples_selected10/ex033-load-vehicle.mp4)
+- outputs: [`load`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex033-load-vehicle.mp4__load.json) [`safety`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex033-load-vehicle.mp4__safety.json) [`security`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex033-load-vehicle.mp4__security.json) [`timeline`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex033-load-vehicle.mp4__timeline.json)
 
 **Load/Physics**
 
@@ -133,6 +145,9 @@ Results dir: `outputs/runs/2026-03-04_meva_examples_selected10/per_stream`
 
 ### ex034-load-vehicle.mp4
 
+- video: [`data/videos/meva_examples_selected10/ex034-load-vehicle.mp4`](data/videos/meva_examples_selected10/ex034-load-vehicle.mp4)
+- outputs: [`load`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex034-load-vehicle.mp4__load.json) [`safety`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex034-load-vehicle.mp4__safety.json) [`security`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex034-load-vehicle.mp4__security.json) [`timeline`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex034-load-vehicle.mp4__timeline.json)
+
 **Load/Physics**
 
 - overall_risk: `SAFE`
@@ -156,6 +171,9 @@ Results dir: `outputs/runs/2026-03-04_meva_examples_selected10/per_stream`
 - events: `0`
 
 ### ex035-load-vehicle.mp4
+
+- video: [`data/videos/meva_examples_selected10/ex035-load-vehicle.mp4`](data/videos/meva_examples_selected10/ex035-load-vehicle.mp4)
+- outputs: [`load`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex035-load-vehicle.mp4__load.json) [`safety`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex035-load-vehicle.mp4__safety.json) [`security`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex035-load-vehicle.mp4__security.json) [`timeline`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex035-load-vehicle.mp4__timeline.json)
 
 **Load/Physics**
 
@@ -184,6 +202,9 @@ Results dir: `outputs/runs/2026-03-04_meva_examples_selected10/per_stream`
 
 ### ex085-theft.mp4
 
+- video: [`data/videos/meva_examples_selected10/ex085-theft.mp4`](data/videos/meva_examples_selected10/ex085-theft.mp4)
+- outputs: [`load`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex085-theft.mp4__load.json) [`safety`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex085-theft.mp4__safety.json) [`security`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex085-theft.mp4__security.json) [`timeline`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex085-theft.mp4__timeline.json)
+
 **Load/Physics**
 
 - overall_risk: `SAFE`
@@ -209,6 +230,9 @@ Results dir: `outputs/runs/2026-03-04_meva_examples_selected10/per_stream`
 
 ### ex086-unload-vehicle.mp4
 
+- video: [`data/videos/meva_examples_selected10/ex086-unload-vehicle.mp4`](data/videos/meva_examples_selected10/ex086-unload-vehicle.mp4)
+- outputs: [`load`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex086-unload-vehicle.mp4__load.json) [`safety`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex086-unload-vehicle.mp4__safety.json) [`security`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex086-unload-vehicle.mp4__security.json) [`timeline`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex086-unload-vehicle.mp4__timeline.json)
+
 **Load/Physics**
 
 - overall_risk: `SAFE`
@@ -232,6 +256,9 @@ Results dir: `outputs/runs/2026-03-04_meva_examples_selected10/per_stream`
 - events: `0`
 
 ### ex087-unload-vehicle.mp4
+
+- video: [`data/videos/meva_examples_selected10/ex087-unload-vehicle.mp4`](data/videos/meva_examples_selected10/ex087-unload-vehicle.mp4)
+- outputs: [`load`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex087-unload-vehicle.mp4__load.json) [`safety`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex087-unload-vehicle.mp4__safety.json) [`security`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex087-unload-vehicle.mp4__security.json) [`timeline`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex087-unload-vehicle.mp4__timeline.json)
 
 **Load/Physics**
 
@@ -258,6 +285,9 @@ Results dir: `outputs/runs/2026-03-04_meva_examples_selected10/per_stream`
 - event: 00:11.50-00:12.80 [improper_handling/low] A person is actively loading or unloading items from a vehicle in the parking lot, with no immediate safety hazards observed in the scene. The individual is wearing dark clothing and appears to be handling objects nea...
 
 ### ex088-unload-vehicle.mp4
+
+- video: [`data/videos/meva_examples_selected10/ex088-unload-vehicle.mp4`](data/videos/meva_examples_selected10/ex088-unload-vehicle.mp4)
+- outputs: [`load`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex088-unload-vehicle.mp4__load.json) [`safety`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex088-unload-vehicle.mp4__safety.json) [`security`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex088-unload-vehicle.mp4__security.json) [`timeline`](outputs/runs/2026-03-04_meva_examples_selected10/per_stream/ex088-unload-vehicle.mp4__timeline.json)
 
 **Load/Physics**
 

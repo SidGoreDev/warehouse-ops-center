@@ -1,6 +1,6 @@
 # Warehouse Ops Center - Test Report
 
-Generated: `2026-03-04 02:24:35`
+Generated: `2026-03-04 02:33:03`
 Results dir: `outputs/auto/per_stream`
 
 ## Summary
@@ -15,15 +15,18 @@ Results dir: `outputs/auto/per_stream`
 
 | Clip | Load | Safety | Security | Timeline events | Notes |
 |---|---:|---:|---:|---:|---|
-| `2018-03-07.16-55-06.17-00-06.school.G336.r13_trim30s.mp4` | SAFE | COMPLIANT | CLEAR | 1 |  |
-| `2018-03-07.16-55-06.17-00-06.school.G339.r13_trim30s.mp4` | SAFE | NON-COMPLIANT | CLEAR | 1 |  |
-| `2018-03-07.16-55-06.17-00-06.school.G424.r13_trim30s.mp4` | SAFE | COMPLIANT | CLEAR | 0 | timeline empty |
-| `2018-03-07.17-00-06.17-05-06.school.G339.r13_trim30s.mp4` | SAFE | COMPLIANT | CLEAR | 1 |  |
-| `2018-03-07.17-00-06.17-05-06.school.G424.r13_trim30s.mp4` | SAFE | COMPLIANT | CLEAR | 1 |  |
+| [`2018-03-07.16-55-06.17-00-06.school.G336.r13_trim30s.mp4`](data/videos/meva_school_selected_30s_copy/2018-03-07.16-55-06.17-00-06.school.G336.r13_trim30s.mp4) | SAFE | COMPLIANT | CLEAR | 1 |  |
+| [`2018-03-07.16-55-06.17-00-06.school.G339.r13_trim30s.mp4`](data/videos/meva_school_selected_30s_copy/2018-03-07.16-55-06.17-00-06.school.G339.r13_trim30s.mp4) | SAFE | NON-COMPLIANT | CLEAR | 1 |  |
+| [`2018-03-07.16-55-06.17-00-06.school.G424.r13_trim30s.mp4`](data/videos/meva_school_selected_30s_copy/2018-03-07.16-55-06.17-00-06.school.G424.r13_trim30s.mp4) | SAFE | COMPLIANT | CLEAR | 0 | timeline empty |
+| [`2018-03-07.17-00-06.17-05-06.school.G339.r13_trim30s.mp4`](data/videos/meva_school_selected_30s_copy/2018-03-07.17-00-06.17-05-06.school.G339.r13_trim30s.mp4) | SAFE | COMPLIANT | CLEAR | 1 |  |
+| [`2018-03-07.17-00-06.17-05-06.school.G424.r13_trim30s.mp4`](data/videos/meva_school_selected_30s_copy/2018-03-07.17-00-06.17-05-06.school.G424.r13_trim30s.mp4) | SAFE | COMPLIANT | CLEAR | 1 |  |
 
 ## Per-Clip Details
 
 ### 2018-03-07.16-55-06.17-00-06.school.G336.r13_trim30s.mp4
+
+- video: [`data/videos/meva_school_selected_30s_copy/2018-03-07.16-55-06.17-00-06.school.G336.r13_trim30s.mp4`](data/videos/meva_school_selected_30s_copy/2018-03-07.16-55-06.17-00-06.school.G336.r13_trim30s.mp4)
+- outputs: [`load`](outputs/auto/per_stream/2018-03-07.16-55-06.17-00-06.school.G336.r13_trim30s.mp4__load.json) [`safety`](outputs/auto/per_stream/2018-03-07.16-55-06.17-00-06.school.G336.r13_trim30s.mp4__safety.json) [`security`](outputs/auto/per_stream/2018-03-07.16-55-06.17-00-06.school.G336.r13_trim30s.mp4__security.json) [`timeline`](outputs/auto/per_stream/2018-03-07.16-55-06.17-00-06.school.G336.r13_trim30s.mp4__timeline.json)
 
 **Load/Physics**
 
@@ -49,6 +52,9 @@ Results dir: `outputs/auto/per_stream`
 - event: 00:00.50-00:27.50 [improper_handling/low] Pedestrians walk leisurely along the sidewalk, maintaining a safe distance from the road and other individuals. No sudden movements or near-misses are observed.
 
 ### 2018-03-07.16-55-06.17-00-06.school.G339.r13_trim30s.mp4
+
+- video: [`data/videos/meva_school_selected_30s_copy/2018-03-07.16-55-06.17-00-06.school.G339.r13_trim30s.mp4`](data/videos/meva_school_selected_30s_copy/2018-03-07.16-55-06.17-00-06.school.G339.r13_trim30s.mp4)
+- outputs: [`load`](outputs/auto/per_stream/2018-03-07.16-55-06.17-00-06.school.G339.r13_trim30s.mp4__load.json) [`safety`](outputs/auto/per_stream/2018-03-07.16-55-06.17-00-06.school.G339.r13_trim30s.mp4__safety.json) [`security`](outputs/auto/per_stream/2018-03-07.16-55-06.17-00-06.school.G339.r13_trim30s.mp4__security.json) [`timeline`](outputs/auto/per_stream/2018-03-07.16-55-06.17-00-06.school.G339.r13_trim30s.mp4__timeline.json)
 
 **Load/Physics**
 
@@ -79,6 +85,9 @@ Results dir: `outputs/auto/per_stream`
 
 ### 2018-03-07.16-55-06.17-00-06.school.G424.r13_trim30s.mp4
 
+- video: [`data/videos/meva_school_selected_30s_copy/2018-03-07.16-55-06.17-00-06.school.G424.r13_trim30s.mp4`](data/videos/meva_school_selected_30s_copy/2018-03-07.16-55-06.17-00-06.school.G424.r13_trim30s.mp4)
+- outputs: [`load`](outputs/auto/per_stream/2018-03-07.16-55-06.17-00-06.school.G424.r13_trim30s.mp4__load.json) [`safety`](outputs/auto/per_stream/2018-03-07.16-55-06.17-00-06.school.G424.r13_trim30s.mp4__safety.json) [`security`](outputs/auto/per_stream/2018-03-07.16-55-06.17-00-06.school.G424.r13_trim30s.mp4__security.json) [`timeline`](outputs/auto/per_stream/2018-03-07.16-55-06.17-00-06.school.G424.r13_trim30s.mp4__timeline.json)
+
 **Load/Physics**
 
 - overall_risk: `SAFE`
@@ -102,6 +111,9 @@ Results dir: `outputs/auto/per_stream`
 - events: `0`
 
 ### 2018-03-07.17-00-06.17-05-06.school.G339.r13_trim30s.mp4
+
+- video: [`data/videos/meva_school_selected_30s_copy/2018-03-07.17-00-06.17-05-06.school.G339.r13_trim30s.mp4`](data/videos/meva_school_selected_30s_copy/2018-03-07.17-00-06.17-05-06.school.G339.r13_trim30s.mp4)
+- outputs: [`load`](outputs/auto/per_stream/2018-03-07.17-00-06.17-05-06.school.G339.r13_trim30s.mp4__load.json) [`safety`](outputs/auto/per_stream/2018-03-07.17-00-06.17-05-06.school.G339.r13_trim30s.mp4__safety.json) [`security`](outputs/auto/per_stream/2018-03-07.17-00-06.17-05-06.school.G339.r13_trim30s.mp4__security.json) [`timeline`](outputs/auto/per_stream/2018-03-07.17-00-06.17-05-06.school.G339.r13_trim30s.mp4__timeline.json)
 
 **Load/Physics**
 
@@ -127,6 +139,9 @@ Results dir: `outputs/auto/per_stream`
 - event: 00:00.50-00:27.50 [improper_handling/low] Construction workers wearing bright yellow safety vests and hard hats are digging a trench on a road near a building. The trench is surrounded by orange traffic cones to mark the work area. A white pickup truck is par...
 
 ### 2018-03-07.17-00-06.17-05-06.school.G424.r13_trim30s.mp4
+
+- video: [`data/videos/meva_school_selected_30s_copy/2018-03-07.17-00-06.17-05-06.school.G424.r13_trim30s.mp4`](data/videos/meva_school_selected_30s_copy/2018-03-07.17-00-06.17-05-06.school.G424.r13_trim30s.mp4)
+- outputs: [`load`](outputs/auto/per_stream/2018-03-07.17-00-06.17-05-06.school.G424.r13_trim30s.mp4__load.json) [`safety`](outputs/auto/per_stream/2018-03-07.17-00-06.17-05-06.school.G424.r13_trim30s.mp4__safety.json) [`security`](outputs/auto/per_stream/2018-03-07.17-00-06.17-05-06.school.G424.r13_trim30s.mp4__security.json) [`timeline`](outputs/auto/per_stream/2018-03-07.17-00-06.17-05-06.school.G424.r13_trim30s.mp4__timeline.json)
 
 **Load/Physics**
 
