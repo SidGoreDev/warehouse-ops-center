@@ -2,7 +2,8 @@ param(
   [Parameter(Mandatory=$true)][string]$InDir,
   [Parameter(Mandatory=$true)][string]$OutDir,
   [int]$Seconds = 20,
-  [string]$Start = "00:00:00"
+  [string]$Start = "00:00:00",
+  [switch]$Copy
 )
 
 $ErrorActionPreference = "Stop"
@@ -29,12 +30,19 @@ foreach ($f in $inputs) {
 
   Write-Host "TRIM $($f.Name) -> $(Split-Path -Leaf $out)"
 
-  # We use h264_mf because the Windows ffmpeg in this environment doesn't ship libx264.
-  ffmpeg -y -hide_banner -loglevel error `
-    -ss $Start -i $f.FullName -t $Seconds `
-    -c:v h264_mf -pix_fmt yuv420p -an `
-    $out
+  if ($Copy) {
+    # Best-quality quick trim: stream copy (no re-encode).
+    ffmpeg -y -hide_banner -loglevel error `
+      -ss $Start -i $f.FullName -t $Seconds `
+      -c copy -an -movflags +faststart `
+      $out
+  } else {
+    # Re-encode fallback. We use h264_mf because the Windows ffmpeg in this environment doesn't ship libx264.
+    ffmpeg -y -hide_banner -loglevel error `
+      -ss $Start -i $f.FullName -t $Seconds `
+      -c:v h264_mf -pix_fmt yuv420p -an `
+      $out
+  }
 }
 
 Write-Host "Done."
-

@@ -59,7 +59,16 @@ class NebiusVllmClient:
             body["seed"] = self._cfg.seed
 
         r = self._session.post(url, json=body, timeout=self._cfg.timeout_s)
-        r.raise_for_status()
+        try:
+            r.raise_for_status()
+        except requests.HTTPError as e:
+            # vLLM/Nebius often returns useful JSON error bodies; surface them for quick iteration.
+            msg = r.text or ""
+            if len(msg) > 6000:
+                head = msg[:1500]
+                tail = msg[-4000:]
+                msg = head + "\n...(truncated)...\n" + tail
+            raise RuntimeError(f"vLLM /chat/completions failed: HTTP {r.status_code}\n{msg}") from e
         raw = r.json()
 
         # vLLM OpenAI-compatible responses typically return a string in message.content

@@ -2,6 +2,9 @@ param(
   [Parameter(Mandatory=$true)][string]$Ip
 )
 
+$repoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
+& (Join-Path $PSScriptRoot "load_dotenv.ps1") -EnvPath (Join-Path $repoRoot ".env")
+
 if (!$env:NEBIUS_VLLM_API_KEY) {
   Write-Error "NEBIUS_VLLM_API_KEY not set in environment. (Tip: load .env in your shell or set it manually)"
   exit 1

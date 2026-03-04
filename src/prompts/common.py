@@ -1,7 +1,7 @@
 REASONING_SUFFIX = """Answer the question using the following format:
 
 <think>
-Your reasoning.
+Briefly explain your reasoning (max 3 sentences).
 </think>
 
 Write your final answer immediately after the </think> tag.

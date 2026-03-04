@@ -42,7 +42,7 @@ class AppConfig:
     top_k: int = 20
     presence_penalty: float = 0.0
     repetition_penalty: float = 1.0
-    max_tokens: int = 800
+    max_tokens: int = 1600
 
     # Optional
     seed: Optional[int] = None
@@ -78,7 +78,7 @@ class AppConfig:
         top_k = _get_int("NEBIUS_VLLM_TOP_K", 20)
         presence_penalty = _get_float("NEBIUS_VLLM_PRESENCE_PENALTY", 0.0)
         repetition_penalty = _get_float("NEBIUS_VLLM_REPETITION_PENALTY", 1.0)
-        max_tokens = _get_int("NEBIUS_VLLM_MAX_TOKENS", 800)
+        max_tokens = _get_int("NEBIUS_VLLM_MAX_TOKENS", 1600)
 
         seed_env = _get_env("NEBIUS_VLLM_SEED")
         seed = int(seed_env) if seed_env not in (None, "") else None
