@@ -58,10 +58,11 @@ def _write_downloader_ps1(keys: List[str], out_path: Path, dest_dir: str) -> Non
     lines.append('New-Item -ItemType Directory -Force -Path $OutDir | Out-Null')
     lines.append("")
     lines.append("$items = @(")
-    for k in keys:
+    for idx, k in enumerate(keys):
         url = _to_https_url(k)
         name = k.split("/")[-1]
-        lines.append(f'  @{{ url = "{url}"; name = "{name}" }},')
+        comma = "," if idx != len(keys) - 1 else ""
+        lines.append(f'  @{{ url = "{url}"; name = "{name}" }}{comma}')
     lines.append(")")
     lines.append("")
     lines.append("foreach ($it in $items) {")
@@ -204,4 +205,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

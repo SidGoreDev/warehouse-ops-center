@@ -12,7 +12,7 @@ $items = @(
   @{ url = "https://mevadata-public-01.s3.amazonaws.com/examples/videos/ex085-theft.mp4"; name = "ex085-theft.mp4" },
   @{ url = "https://mevadata-public-01.s3.amazonaws.com/examples/videos/ex086-unload-vehicle.mp4"; name = "ex086-unload-vehicle.mp4" },
   @{ url = "https://mevadata-public-01.s3.amazonaws.com/examples/videos/ex087-unload-vehicle.mp4"; name = "ex087-unload-vehicle.mp4" },
-  @{ url = "https://mevadata-public-01.s3.amazonaws.com/examples/videos/ex088-unload-vehicle.mp4"; name = "ex088-unload-vehicle.mp4" },
+  @{ url = "https://mevadata-public-01.s3.amazonaws.com/examples/videos/ex088-unload-vehicle.mp4"; name = "ex088-unload-vehicle.mp4" }
 )
 
 foreach ($it in $items) {
