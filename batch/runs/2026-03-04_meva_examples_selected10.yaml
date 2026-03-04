@@ -1,0 +1,40 @@
+session: 2026-03-04_meva_examples_selected10
+description: MEVA public examples/videos - curated 10-clip MVP demo set (run-labeled outputs)
+jobs:
+- type: per_stream
+  mode: load
+  clips: &clips
+  - stream_id: ex_01_ex027-heavy-carry
+    path: data/videos/meva_examples_selected10/ex027-heavy-carry.mp4
+  - stream_id: ex_02_ex028-heavy-carry
+    path: data/videos/meva_examples_selected10/ex028-heavy-carry.mp4
+  - stream_id: ex_03_ex029-heavy-carry
+    path: data/videos/meva_examples_selected10/ex029-heavy-carry.mp4
+  - stream_id: ex_04_ex033-load-vehicle
+    path: data/videos/meva_examples_selected10/ex033-load-vehicle.mp4
+  - stream_id: ex_05_ex034-load-vehicle
+    path: data/videos/meva_examples_selected10/ex034-load-vehicle.mp4
+  - stream_id: ex_06_ex035-load-vehicle
+    path: data/videos/meva_examples_selected10/ex035-load-vehicle.mp4
+  - stream_id: ex_07_ex085-theft
+    path: data/videos/meva_examples_selected10/ex085-theft.mp4
+  - stream_id: ex_08_ex086-unload-vehicle
+    path: data/videos/meva_examples_selected10/ex086-unload-vehicle.mp4
+  - stream_id: ex_09_ex087-unload-vehicle
+    path: data/videos/meva_examples_selected10/ex087-unload-vehicle.mp4
+  - stream_id: ex_10_ex088-unload-vehicle
+    path: data/videos/meva_examples_selected10/ex088-unload-vehicle.mp4
+  output_dir: outputs/runs/2026-03-04_meva_examples_selected10/per_stream/
+- type: per_stream
+  mode: safety
+  clips: *clips
+  output_dir: outputs/runs/2026-03-04_meva_examples_selected10/per_stream/
+- type: per_stream
+  mode: security
+  clips: *clips
+  output_dir: outputs/runs/2026-03-04_meva_examples_selected10/per_stream/
+- type: per_stream
+  mode: timeline
+  clips: *clips
+  output_dir: outputs/runs/2026-03-04_meva_examples_selected10/per_stream/
+

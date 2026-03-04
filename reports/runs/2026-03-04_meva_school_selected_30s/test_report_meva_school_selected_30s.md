@@ -1,13 +1,13 @@
 # Warehouse Ops Center - Test Report
 
-Generated: `2026-03-04 01:59:50`
+Generated: `2026-03-04 02:24:35`
 Results dir: `outputs/auto/per_stream`
 
 ## Summary
 
 - Clips: `5`
 - Timeline events: `4` (non-empty clips: `4`)
-- Load overall_risk counts: `SAFE=5`, `CAUTION=0`, `DANGER=0`
+- Load overall_risk counts: `SAFE=5, WARNING=0, CRITICAL=0`
 - Safety overall_compliance counts: `COMPLIANT=4`, `PARTIAL=0`, `NON-COMPLIANT=1`
 - Security overall_security counts: `CLEAR=5`, `ALERT=0`, `BREACH=0`
 

@@ -73,7 +73,8 @@ def build_report(results_dir: Path) -> str:
     n_clips = len(clips)
     safety_counts: Dict[str, int] = {"COMPLIANT": 0, "PARTIAL": 0, "NON-COMPLIANT": 0, "": 0}
     security_counts: Dict[str, int] = {"CLEAR": 0, "ALERT": 0, "BREACH": 0, "": 0}
-    load_counts: Dict[str, int] = {"SAFE": 0, "CAUTION": 0, "DANGER": 0, "": 0}
+    # Load prompt expects: SAFE | WARNING | CRITICAL (but we also tolerate unknowns).
+    load_counts: Dict[str, int] = {"SAFE": 0, "WARNING": 0, "CRITICAL": 0, "": 0}
     timeline_event_total = 0
     timeline_nonempty = 0
 
@@ -83,7 +84,8 @@ def build_report(results_dir: Path) -> str:
         security = rows[clip].get("security") or {}
         timeline = rows[clip].get("timeline")
 
-        load_counts[_safe_str(load.get("overall_risk"))] = load_counts.get(_safe_str(load.get("overall_risk")), 0) + 1
+        lr = _safe_str(load.get("overall_risk"))
+        load_counts[lr] = load_counts.get(lr, 0) + 1
         safety_counts[_safe_str(safety.get("overall_compliance"))] = safety_counts.get(
             _safe_str(safety.get("overall_compliance")), 0
         ) + 1
@@ -109,7 +111,15 @@ def build_report(results_dir: Path) -> str:
     out.append("")
     out.append(f"- Clips: `{n_clips}`")
     out.append(f"- Timeline events: `{timeline_event_total}` (non-empty clips: `{timeline_nonempty}`)")
-    out.append(f"- Load overall_risk counts: `SAFE={load_counts.get('SAFE',0)}`, `CAUTION={load_counts.get('CAUTION',0)}`, `DANGER={load_counts.get('DANGER',0)}`")
+    load_summary_parts = [
+        f"SAFE={load_counts.get('SAFE',0)}",
+        f"WARNING={load_counts.get('WARNING',0)}",
+        f"CRITICAL={load_counts.get('CRITICAL',0)}",
+    ]
+    extra_load = sorted(k for k in load_counts.keys() if k not in ("", "SAFE", "WARNING", "CRITICAL") and load_counts.get(k, 0) > 0)
+    for k in extra_load:
+        load_summary_parts.append(f"{k}={load_counts.get(k,0)}")
+    out.append(f"- Load overall_risk counts: `{', '.join(load_summary_parts)}`")
     out.append(
         f"- Safety overall_compliance counts: `COMPLIANT={safety_counts.get('COMPLIANT',0)}`, `PARTIAL={safety_counts.get('PARTIAL',0)}`, `NON-COMPLIANT={safety_counts.get('NON-COMPLIANT',0)}`"
     )
